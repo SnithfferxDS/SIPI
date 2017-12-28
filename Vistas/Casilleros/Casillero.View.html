@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DSIN | Casilleros</title>
+</head>
+<body>
+    <h1>Casilleros</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <td style="display: none;">ID</td>
+                <td>
+                    Nombre
+                </td>
+                <td>
+                    Direcci&oacute;n
+                </td>
+                <td>
+                    Contacto
+                </td>
+                <td>
+                    Tel&eacutefono
+                </td>
+            </tr>
+        </thead>
+        <tbody id="pobox_list">           
+        </tbody>
+    </table>
+    <script src="../../js/estilos.js"></script>
+    <script>
+        $(document).ready(function()
+        {
+            solicitud('Controles', 'Casilleros','','','tabala', 'pobox_list');
+        }
+    </script>
+</body>
+</html>
