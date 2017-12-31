@@ -5,9 +5,23 @@
     {
         public function get_All_POBoxes()
         {
-            $model = new Model;
+            $model = new Model;/*
             $poboxes = $model->get_All_Elemnts('casilleros', 50);
-            return $poboxes;
+            return $poboxes; */
+            $casilleros = $model->custom_Query("SELECT casilleros.id,
+                                                    casilleros.nombre,
+                                                    casilleros.direccion,
+                                                    casilleros.descripcion,
+                                                    casilleros.contacto,
+                                                    casilleros.contact_email,
+                                                    casilleros.contact_phone,
+                                                    estados.nombre as estado,
+                                                    casilleros.company
+                                                FROM casilleros, estados
+                                                WHERE estados.id = casilleros.estado
+                                                LIMIT 50");
+
+            return $casilleros;
         }
         
         public function insertar_casillero($valores)

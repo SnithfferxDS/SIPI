@@ -23,57 +23,71 @@ $(document).ready(function()
                 url: 'sipimini/fido.php',
                 data: {controlador: 'casilleros', metodo: 'index', datos:''},
                 type: 'post',
-                dataType: "json",
+                /* dataType: "html", */
                 success: function(list) {
-                                        var html='';
-                                            html += "<h1>" + list['mensaje'] + "</h1>";
-                                            html += "<h3>" + list['errores'] + "</h3>";
-                                            html += "<hr>";
-                                            html += "<table class='table'>";
-                                            html +=     "<thead>";
-                                            html +=         "<tr>";
-                                            html +=             "<th style='display:none;'>ID</th>"
-                                            html +=             "<th>Nombre</th>";
-                                            html +=             "<th>Direcci&oacuten;</th>";
-                                            html +=             "<th>Descripci&oacuten;</th>";
-                                            html +=             "<th>Contacto</th>";
-                                            html +=             "<th>Estado</th>";
-                                            html +=             "<th colspan='2';></th>";
-                                            html +=         "</tr>";
-                                            html +=     "</thead>";
-                                            html +=     "<tbody>";
-                                        if(list['registros'].length > 0)
-                                        {
-                                            html += "<tr> <td colspan='7'>"+ list['registros'][0] + "</td></tr>";
-                                            /* se recorre el JSON con un for */
-                                            /* Se recorren los registros */
-                                            for( var i=0; i < list['registros'].length; i++ )
+                                        /*
+                                            var html='';
+                                                html += "<h1>" + list['mensaje'] + "</h1>";
+                                                html += "<h3>" + list['errores'] + "</h3>";
+                                                html += "<hr>";
+                                                html += "<table class='table'>";
+                                                html +=     "<thead>";
+                                                html +=         "<tr>";
+                                                html +=             "<th>ID</th>"
+                                                html +=             "<th>Nombre</th>";
+                                                html +=             "<th>Direcci&oacuten;</th>";
+                                                html +=             "<th>Descripci&oacuten;</th>";
+                                                html +=             "<th>Contacto</th>";
+                                                html +=             "<th>Estado</th>";
+                                                html +=             "<th>Tel&eacute;fono</th>";
+                                                html +=             "<th colspan='2';></th>";
+                                                html +=         "</tr>";
+                                                html +=     "</thead>";
+                                                html +=     "<tbody>";
+                                            if(list['registros'].length > 0)
                                             {
-                                            html +=         "<tr>";
-                                            /* recorriendo cada registro */
-                                            /*
-                                                for(var a=0; a < list['registros'][i].length; a++)
+                                                html += "<tr> <td colspan='7'>"+ list['registros'][0] + "</td></tr>";
+                                                se recorre el JSON con un for 
+                                                Se recorren los registros
+                                                
+                                                arrayregistro = list['registros'].length;
+                                                for( var i=0; i < arrayregistro; i++ )
                                                 {
-                                            html +=             "<td style='display:none;'>" + list['registros'][i][a] + "</td>";
-                                            html +=             "<td>" + list['registros'][i]['nombre'] + "</td>";
-                                            html +=             "<td>" + list['registros'][i]['direccion'] + "</td>";
-                                            html +=             "<td>" + list['registros'][i]['descripcion'] + "</td>";
-                                            html +=             "<td>" + list['registros'][i]['contacto'] + "</td>";
-                                            html +=             "<td>" + list['registros'][i]['estado'] + "</td>";
-                                            html +=             "<td class='bg-primary' style='text-align:center'><a href='#' class='editPoBox' style='color:#fff;'><i class='fa fa-eye'></i></a></td>";
-                                            html +=             "<td class='bg-alert' style='text-align:center'><a href='#' class='coti_buy' style='#fff'><i class='fa fa-shopping-cart'></i></a></td>";
-                                                }
-                                            html +=         "</tr>";
-                                            }*/
-                                        }
-                                        if(list['registros'].length == 0){
-                                            html += '<tr><td colspan="7"> No hay datos para mostrar </td></tr>';
-                                        }
-                                            html +=     "</tbody>";
-                                            html += "</table>";
-
-                                        $('#wrap-slider').html(html);
-                                        console.log(html);
+                                                    registro = list['registros'][i].length;
+                                                
+                                                html +=         "<tr>";
+                                                for(var i in list['registros'])
+                                                {
+                                                    
+                                                    console.log(list['registros'][i])
+                                                    for(var j in list['registros'][i])
+                                                    {
+                                                        console.log(list['registros'][i][j])
+                                                        html += "<td>" + list['registros'][i] + "</td>";
+                                                
+                                                
+                                                 recorriendo cada registro 
+                                                    for(var a=0; a < registro; a++)
+                                                    {
+                                                html +=             "<td>" + list['registros'][i][a] + "</td>";
+                                                html +=             "<td>" + list['registros'][i]['nombre'] + "</td>";
+                                                html +=             "<td>" + list['registros'][i]['direccion'] + "</td>";
+                                                html +=             "<td>" + list['registros'][i]['descripcion'] + "</td>";
+                                                html +=             "<td>" + list['registros'][i]['contacto'] + "</td>";
+                                                html +=             "<td>" + list['registros'][i]['estado'] + "</td>";
+                                                    }
+                                                html +=             "<td class='bg-primary' style='text-align:center'><a href='#' class='editPoBox' style='color:#fff;'><i class='fa fa-eye'></i></a></td>";
+                                                html +=             "<td class='bg-alert' style='text-align:center'><a href='#' class='coti_buy' style='#fff'><i class='fa fa-shopping-cart'></i></a></td>";                                                
+                                                html +=         "</tr>";
+                                            }
+                                            if(list['registros'].length == 0){
+                                                html += '<tr><td colspan="7" style="text-align:center;"> No hay datos para mostrar </td></tr>';
+                                            }
+                                                html +=     "</tbody>";
+                                                html += "</table>";
+                                            console.log(html);
+                                        */
+                                            $('#wrap-slider').html(list);
                                         }
                 });
         });
@@ -105,6 +119,19 @@ $(document).ready(function()
                 $("#wrap-slider").html(compra);
             });
         });
+		
+		$('a.Tiendas').click(function(){
+			$.ajax({ 
+				url: 'sipimini/fido.php',
+				data: {controller: 'tiendas', method: 'index', data: ''},
+				type: 'post',
+				success: function(respuesta)
+				{
+					$("#wrap-slider").html(respuesta);
+				}
+			});
+			//get_Response('tiendas');
+		});
     });
 /*
 function MostrarConsulta(datos){
@@ -209,3 +236,15 @@ function crear_cotizacion()
                                             // añadimos  a nuestra tabla todos los datos encontrados mediante la funcion html
                                             $("#wrap-slider tbody").html(html);  
                                        } */
+function get_Response(controller = '', method = 'index', data = '')
+    {
+        $.ajax({ 
+            url: 'sipimini/fido.php',
+            data: {controller: controlador, method: metodo, data: datos},
+            type: 'post',
+            success: function(respuesta)
+            {
+                $("#wrap-slider").html(respuesta);
+            }
+        });
+    }
