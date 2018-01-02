@@ -10,17 +10,22 @@
         $id_usuario=$row["id_usuario"];
     }
 ?>
+    <script src="../js/configuracion_acordeon.js"></script>
     <div class="basic" id="list1b" style="text-align:center;">
     <span style="background:#dd2c00;">Acciones</span>
 	<div>
 		<ul id="sub_menu">
             <li><a href="#" class="seguimiento boton">Seguimiento de paquetes&nbsp;<i class="fa fa-cubes" aria-hidden="true"></i></a></li>
             <li><a href="#" class="orders boton">Ordenes compra&nbsp;<i class="fa fa-shopping-bag" aria-hidden="true"></i></a></li>
-            <li><a href="#" onclick="modal_coti()" class="cotizar boton">Cotizar Producto&nbsp;<i class="fa fa-pencil" aria-hidden="true"></i></a></li>
-            <li>
-                <a href="#" class="Comprar boton">Comprar&nbsp;<i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
-            </li>
+            <li><a href="#" onclick="Cotizacion boton" class="cotizar boton">Cotizar Producto&nbsp;<i class="fa fa-pencil" aria-hidden="true"></i></a></li>
+
+            <?php
+                if($id_usuario == 65)
+                {
+            ?>
+            <li><a href="#" class="Comprar boton">Comprar&nbsp;<i class="fa fa-shopping-basket" aria-hidden="true"></i></a></li>
             <li><a href="sipimini/vistas/ajaxtuto.html" class="cotizar boton">Prueba&nbsp;<i class="fa fa-pencil" aria-hidden="true"></i></a></li>
+            <?php } ?>
         </ul>
     </div>
     <?php
@@ -43,7 +48,7 @@
                 <a href="#" class="Tarjetas boton">Tarjetas</a>
             </li>
             <li>
-                <a href="#" class="Categoriras boton">Categoriras</a>
+                <a href="#" class="Categorias boton">Categoriras</a>
             </li>
             <li>
                 <a href="#" class="Estados boton">Estados</a>

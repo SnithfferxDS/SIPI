@@ -1,9 +1,10 @@
 <?php
+    //include "../../api/conexion/conexion.php";
     class Model
     {
         public function get_All_Elemnts($tabla=null, $limite=100)
         {
-            include "../api/conexion/conexion.php";
+            include_once "../api/conexion/conexion.php";
             /* $coneccion = new Conexion; */
             $mensaje = '';
             $error = '';
@@ -18,9 +19,9 @@
                 $consulta = $conn->consulta("SELECT * FROM $tabla LIMIT $limite");
                 if(mysql_num_rows($consulta) > 0)
                 {
-                    while($row = mysql_fetch_array($consulta))
+                    while($row = mysql_fetch_array($consulta, MYSQL_NUM))
                     {
-                        $records = $row;
+                        $records[] = $row;
                     }
                     $mensaje = "Registros en tabla: ".$tabla;
                 }
@@ -37,6 +38,7 @@
 
         public function get_Elements_By_Id($id = null, $tabla = null)
         {
+            include_once "../../api/conexion/conexion.php";
             $mensaje = '';
             $error = '';
             $records = array();
@@ -47,12 +49,12 @@
             }
             else
             {
-                $consulta=$conn->consulta("SELECT * FROM $tabla WHERE id = $id");
+                $consulta = $conn->consulta("SELECT nombre FROM $tabla WHERE id = $id");
                 if(mysql_num_rows($consulta) > 0)
                 {
                     while($row = mysql_fetch_array($consulta))
                     {
-                        $records = $row;
+                        $records[] = $row;
                     }
                     $mensaje = "Registros en tabla: ".$tabla;
                 }
@@ -71,6 +73,7 @@
 
         public function insert_registro($campos = array(), $valores = array(), $tabla = null)
         {
+            include_once "../../api/conexion/conexion.php";
             $mensaje = '';
             $error = '';
             $records = array();
@@ -100,6 +103,7 @@
 
         public function update_registro($valor = null, $campo = null, $tabla = null, $id = null)
         {
+            include_once "../../api/conexion/conexion.php";
             $mensaje = '';
             $error = '';
             $records = array();
@@ -130,6 +134,7 @@
 
         public function delete_registro($tabla = null, $id = null)
         {
+            include_once "../../api/conexion/conexion.php";
             $mensaje = '';
             $error = '';
             $records = array();
@@ -160,36 +165,35 @@
 
         public function custom_Query($query = "")
         {
+            include_once "../api/conexion/conexion.php";
             $mensaje = '';
             $error = '';
             $records = array();
             
             if($query == "")
             {
-                $mensaje = "No hay nada para hacer..!";
+                $mensaje = "No hay nada la tabla..!";
             }
             else
             {
                 $consulta = $conn->consulta($query);
 
-                if(mysql_affected_rows( $consulta) > 0)
+                if(mysql_num_rows( $consulta) > 0)
                 {
-                    $mensaje = "los cambios han sido aplicados";
+                    $mensaje = " tiene estos registros: "; 
+                    while($row = mysql_fetch_array($consulta, MYSQL_NUM))
+                    {
+                        $records[] = $row;
+                    }
+                }
+                else if(mysql_affected_rows($consulta) > 0)
+                {
+                    $mensaje = "los cambios han sido aplicados";   
                 }
                 else
                 {
-                    if(mysql_num_rows($consulta) > 0)
-                    {
-                        while($row = mysql_fetch_array($consulta))
-                        {
-                            $records = $row;
-                        }
-                    }
-                    else
-                    {
-                        $error = mysql_errno($consulta);
-                    }
-                    
+                    $error = 'Error: '.mysql_errno($consulta).'; ';
+                    $error .= mysql_error($consulta);
                 }
             }
             
@@ -200,3 +204,9 @@
             return $elements;
         }
     }
+    /* $modelo = new Model;
+    $registros = $modelo->get_All_Elemnts('casilleros', 20);
+    print_r($registros); */
+    /*echo "</ br></ br></ br></ br>";
+    $prueba1 = $modelo->get_Elements_By_Id(2,'estados');
+    print_r($prueba1); */

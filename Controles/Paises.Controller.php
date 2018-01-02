@@ -1,15 +1,14 @@
 <?php
     include "../sipimini/Clases/Controller.php";
-    include "../sipimini/Modelos/Tienda.php";
-    class Tiendas
+    include "../sipimini/Modelos/Pais.php";
+    class Paises
     {
         public function index()
         {
             //Se instancian las clases necesarias.
-            //$controlador = new Controller;
-            $modelo = new Tienda;
+            $modelo = new Pais;
             //Se llama una función que trae todos los casilleros del modelo Casillero.
-            $datos = $modelo->get_All_Stores();
+            $datos = $modelo->get_All_Countries();
 
             //Se crea la tabla
             $arreglo_de_tabla = '';
@@ -25,12 +24,19 @@
 
                 $tibari .= "<tr>";
                 $tibari .= "<td style='Display:none;'>" . $datos['registros'][$a][0] . "</td>";
-                for($b = 1; $b < $size3D-4; $b++)
+                $tibari .= "<td style='text-align:center;'>" . $datos['registros'][$a][1] . "</td>";
+                if ($datos['registros'][$a][2] > 0)
                 {
-                    $tibari .= "<td style='text-align:center;'>" . $datos['registros'][$a][$b] . "</td>";
+                    $tibari .= "<td style='text-align:center;'> Si Cobra </td>";
                 }
-                $tibari .= "<td class='bg-primary' style='text-align:center'><a href='#' class='editStores' style='color:#fff;'><i class='fa fa-edit fa-2x'></i></a></td>";
-                $tibari .= "<td class='bg-alert' style='text-align:center'><a href='#' class='storeDetails' style='#fff'><i class='fa fa-eye fa-2x'></i></a></td>";
+                else
+                {
+                    $tibari .= "<td style='text-align:center;'> No Cobra </td>";
+                }
+                $tibari .= "<td style='text-align:center;'>" . $datos['registros'][$a][3] . "</td>";
+                $tibari .= "<td style='text-align:center;'>" . $datos['registros'][$a][4] . "%</td>";
+                $tibari .= "<td class='bg-primary' style='text-align:center'><a href='#' class='editCountries' style='color:#fff;'><i class='fa fa-edit fa-2x'></i></a></td>";
+                $tibari .= "<td class='bg-alert' style='text-align:center'><a href='#' class='CountryDetails' style='#fff'><i class='fa fa-eye fa-2x'></i></a></td>";
                 $tibari .= "</tr>";
             }
             
@@ -39,21 +45,16 @@
                                         <tr>
                                             <th style='Display:none;'>ID</th>
                                             <th>Nombre</th>
-                                            <th>Direcci&oacute;n</th>
-                                            <th>Tel&eacute;fono</th>
-                                            <th>Tax</th>
-                                            <th>Contacto</th>
+                                            <th>Cobra Impuesto</th>
+                                            <th>IMPEX</th>
+                                            <th>Descuento / TLC</th>
                                             <th colspan='2'></th>
                                         </tr>
                                     </thead>
                                     <tbody>" . $tibari . "</tbody>
                                     </table>";
 
-            //$controlador->view('Casilleros/Casilleros.lista', $datos);
-
             echo $arreglo_de_tabla;
         }
     }
-    /* $store = new Tiendas;
-    $stores = $store->index(); */
 ?>

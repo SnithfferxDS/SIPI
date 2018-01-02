@@ -9,7 +9,7 @@
 
         public function view($view, $data = array())
         {
-            return $view . '.View.php';
+            require 'Vistas/' . $view . '.View.php';
         }
     }
 ?>

@@ -23,6 +23,13 @@
 
             return $casilleros;
         }
+
+        public function get_POB_By_Id($aidi, $teibol)
+        {
+            $model = new Model;
+            $pobs = $model->get_Elements_By_Id($aidi, $teibol);
+            return $pobs;
+        }
         
         public function insertar_casillero($valores)
         {
@@ -106,5 +113,16 @@
             }
             
         }
+
+        public function search_elsewhere($id = null, $tabla = null)
+        {
+            $kueri = "SELECT * FROM $tabla WHERE id = $id";
+            $result = custom_Query($kueri);
+            return $result;
+        }
     }
+    /* $pob = new Casillero;
+    $cas = $pob->get_All_POBoxes();
+    $yeison = json_encode($cas);
+    print_r($yeison); */
 ?>
