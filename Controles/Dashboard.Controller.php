@@ -1,4 +1,9 @@
 <?php
+    include "../Modelos/Dasboard.php";
+    include "../../api/conexion/conexion.php";
+    session_start();
+    $usuario=base64_decode($_SESSION['usuario']);
+    $user_id = $conn->consulta("SELECT id_usuario FROM usuarios WHERE usuario = '$usuario'");
     class Dashboard
     {
         public function index($user = 61)

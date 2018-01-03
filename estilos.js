@@ -16,9 +16,9 @@ function objetoAjax(){
 }
 
 $(document).ready(function()
+{
+    $('a.Casilleros').click(function()
     {
-        $('a.Casilleros').click(function()
-        {
             $.ajax({ 
                 url: 'sipimini/fido.php',
                 data: {controlador: 'casilleros', metodo: 'index', datos:''},
@@ -90,99 +90,201 @@ $(document).ready(function()
                                             $('#wrap-slider').html(list);
                                         }
                 });
-        });
+    });
 
-        $('.seguimiento').click(function(){
-            $.ajax({
-                url: 'sipimini/fido.php',
-                data: {controlador: 'tracker', metodo: 'index', datos:''},
-                type: 'post',
-                success: function(lista){
-                    console.log(lista);
-                }
-            });
+    $('.seguimiento').click(function(){
+        $.ajax({ 
+            url: 'sipimini/fido.php',
+            data: {controlador: 'seguimientos', metodo: 'index', datos:''},
+            type: 'post',
+            success: function(respuesta)
+            {
+                $("#wrap-slider").html(respuesta);
+            }
         });
+    });
 
-        $('.orders').click(function(){
-            $.ajax({
-                url: 'sipimini/fido.php',
-                data: {controlador: 'orders', metodo: 'index', datos:''},
-                type: 'post',
-                success: function(lista){
-                    console.log(lista);
-                }
-            });
-        });
+    $('.orders').click(function(){
+        get_Response('ordenes');
+    });
 
-        $('.comprar').click(function(){
-            $.post("sipimini/controles/pigmak.Controller.php",function(compra){
+    $('.comprar').click(function(){
+        $.post("sipimini/controles/pigmak.Controller.php",function(compra){
                 $("#wrap-slider").html(compra);
             });
-        });
-		
-		$('a.Tiendas').click(function(){
-			$.ajax({ 
-				url: 'sipimini/fido.php',
-				data: {controller: 'tiendas', method: 'index', data: ''},
-				type: 'post',
-				success: function(respuesta)
-				{
-					$("#wrap-slider").html(respuesta);
-				}
-			});
-			//get_Response('tiendas');
-		});
     });
-/*
-function MostrarConsulta(datos){
-    divResultado = document.getElementById('resultado');
-    ajax = objetoAjax();
-    ajax.open("GET", datos);
-    ajax.onreadystatechange=function(){
-        if(ajax.readyState==4){
-            divResultado.innerHTML = ajax.responseText
-        }
-    }
-    ajax.send(null)
-}
 
-$(document).ready(function(){
-    $.ajax({
-        url:"../sipimini/Vistas/Prueba.View.php",
-        data:"",
-        dataType:"text",
-        sucess: function(strData){
-            $('#wrap-slider').txt(strData)
-        }
+    $('a.Tiendas').click(function(){
+        $.ajax({ 
+            url: 'sipimini/fido.php',
+            data: {controlador: 'tiendas', metodo: 'index', datos:''},
+            type: 'post',
+            success: function(respuesta)
+            {
+                $("#wrap-slider").html(respuesta);
+            }
+        });
+        //get_Response('tiendas');
+    });
+
+    $('a.Paises').click(function(){
+        $.ajax({ 
+            url: 'sipimini/fido.php',
+            data: {controlador: 'Paises', metodo: 'index', datos:''},
+            type: 'post',
+            success: function(respuesta)
+            {
+                $("#wrap-slider").html(respuesta);
+            }
+        });
+    });
+
+    $('a.Tarjetas').click(function(){
+        $.ajax({ 
+            url: 'sipimini/fido.php',
+            data: {controlador: 'Tarjetas', metodo: 'index', datos:''},
+            type: 'post',
+            success: function(respuesta)
+            {
+                $("#wrap-slider").html(respuesta);
+            }
+        });
+    });
+
+    $('a.Estados').click(function(){
+        $.ajax({ 
+            url: 'sipimini/fido.php',
+            data: {controlador: 'Estados', metodo: 'index', datos:''},
+            type: 'post',
+            success: function(respuesta)
+            {
+                $("#wrap-slider").html(respuesta);
+            }
+        });
+    });
+
+    $('a.Categorias').click(function(){
+        $.ajax({ 
+            url: 'sipimini/fido.php',
+            data: {controlador: 'Categorias', metodo: 'index', datos:''},
+            type: 'post',
+            success: function(respuesta)
+            {
+                $("#wrap-slider").html(respuesta);
+            }
+        });
+    });
+
+    $('a.seguimiento').click(function(){
+        $.ajax({ 
+            url: 'sipimini/fido.php',
+            data: {controlador: 'seguimiento', metodo: 'index', datos:''},
+            type: 'post',
+            success: function(respuesta)
+            {
+                $("#wrap-slider").html(respuesta);
+            }
+        });
+    });
+
+    $('a.orders').click(function(){
+        $.ajax({ 
+            url: 'sipimini/fido.php',
+            data: {controlador: 'orders', metodo: 'index', datos:''},
+            type: 'post',
+            success: function(respuesta)
+            {
+                $("#wrap-slider").html(respuesta);
+            }
+        });
+    });
+
+    $('a.Comprar').click(function(){
+        $.ajax({ 
+            url: 'sipimini/fido.php',
+            data: {controlador: 'Comprar', metodo: 'index', datos:''},
+            type: 'post',
+            success: function(respuesta)
+            {
+                $("#wrap-slider").html(respuesta);
+            }
+        });
+    });
+
+    $('a.Cotizacion').click(function(){
+        $("#sipi_coti").dialog({
+            title:"Cotización de Importación",
+            width:400,
+            height:300,
+            show: "fold",
+            hide: "scale",
+            modal:true,
+            resizable:false
+        });
     })
-})
-function modal_coti(){
-    $('#modal').modal('show');
-};
-
-function imports_dropdowns()
-{
-    document.getElementById("dropdown_Components").classList.toggle("show");
-}
-
-window.onclick = function(event)
-{
-    if (!event.target.matches('.dropbtn'))
-    {  
-      var dropdowns = document.getElementsByClassName("dropdown-content");
-      var i;
-      for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
-        }
-      }
+    function get_Response(controller = '', method = 'index', data = '')
+    {
+        $.ajax({ 
+            url: 'sipimini/fido.php',
+            data: {controller: controlador, method: metodo, data: datos},
+            type: 'post',
+            success: function(respuesta)
+            {
+                $("#wrap-slider").html(respuesta);
+            }
+        });
     }
-}
-
-$('.submenu').click(function(){
-    $(this).children('.children').slideToggle();
 });
+/*
+    function MostrarConsulta(datos){
+        divResultado = document.getElementById('resultado');
+        ajax = objetoAjax();
+        ajax.open("GET", datos);
+        ajax.onreadystatechange=function(){
+            if(ajax.readyState==4){
+                divResultado.innerHTML = ajax.responseText
+            }
+        }
+        ajax.send(null)
+    }
+
+    $(document).ready(function(){
+        $.ajax({
+            url:"../sipimini/Vistas/Prueba.View.php",
+            data:"",
+            dataType:"text",
+            sucess: function(strData){
+                $('#wrap-slider').txt(strData)
+            }
+        })
+    })
+    function modal_coti(){
+        $('#modal').modal('show');
+    };
+
+    function imports_dropdowns()
+    {
+        document.getElementById("dropdown_Components").classList.toggle("show");
+    }
+
+    window.onclick = function(event)
+    {
+        if (!event.target.matches('.dropbtn'))
+        {  
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+            }
+        }
+        }
+    }
+
+    $('.submenu').click(function(){
+        $(this).children('.children').slideToggle();
+    });
 */
 function crear_cotizacion()
 {
@@ -236,15 +338,4 @@ function crear_cotizacion()
                                             // añadimos  a nuestra tabla todos los datos encontrados mediante la funcion html
                                             $("#wrap-slider tbody").html(html);  
                                        } */
-function get_Response(controller = '', method = 'index', data = '')
-    {
-        $.ajax({ 
-            url: 'sipimini/fido.php',
-            data: {controller: controlador, method: metodo, data: datos},
-            type: 'post',
-            success: function(respuesta)
-            {
-                $("#wrap-slider").html(respuesta);
-            }
-        });
-    }
+
